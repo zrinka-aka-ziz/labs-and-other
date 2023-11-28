@@ -1,0 +1,36 @@
+Zrinka Pećanić
+
+***OPIS ALATA***
+
+Alat koristi AES šifru kako bi osigurao povjerljivost i integritet.
+Podaci su zapisani u parovima (user, password) u rječnik koji se pretvara u json string i kriptira (user=key, password=value).
+
+Opis pojedinačnih funkcija:
+1) init
+Kao argument prima master password, provjerava postoji li Pwdmanager.txt i ako postoji javlja da je manager već inicijaliziran.
+Ako ne postoji Pwdmanager.txt, enkriptira prazan rječnik (python rječnik pretvoren u json string) s masterpassword-om i javlja da je manager incijaliziran.
+2) put
+Argumente koje prima su redom: master password, username, password.
+Dekriptira rječnik iz Pwdmanager.txt koristeći metodu decrypt i master password. 
+Dodaje u rječnik par username, password gdje je user ključ, a password vrijednost.
+Enkriptira taj rječnik (prebačen u oblik json objekta) koristeći master password i metodu encrypt te javlja da je lozinka spremljena.
+3) get
+Argumente koje prima su redom: master password, username.
+Dekriptira rječnik iz Pwdmanager.txt koristeći metodu decrypt i master password.
+Ako u rječniku postoji traženi username, ispsuje njegovu lozinku. Ako ne postoji, ispisuje da username nije pronađen.
+4) encrypt
+Argumente koje prima su redom: master password, decryptedtxt (rječnik u obliku json objekta).
+Otvara Pwdmanager.txt na početku i za salt uzima 32 random byte-a, za nonce 16 random byte-ova. 
+Stvara ključ duljine 32 byte-a metodom scrypt koristeći master password, salt, duljinu ključa, n(2**20), r(8 byte-ova), p(1 byte).
+Stvara objet cipher koristeći AES i taj ključ. U file Pwdmanager.txt zapisuje: salt, nonce, decryptedtxt enkriptiran cipher-om, hashcode dobiven metodom cipher.digest().
+File se zatvara.
+5) decrypt
+Kao argument prima master password.
+Otvara Pwdmanager.txt i stvara ključ od master passworda i salta kojeg pročita kao prvih 32 byte-a u fileu (+ duljina ključa, N, r, p).
+Stvara cipher koristeći AES i taj ključ uz nonce koji pročita kao idućih 16 byte-ova iz Pwdmanager.txt.
+Računa veličinu enkriptiranog rječnika tako da oduzme veličinu salt, nonce i tag od veličine Pwdmanager.txt. 
+Čita tekst iz Pwdmanager.txt te veličine i dekriptira ga koristeći cipher.decrypt().
+Zatim pročita tag kao zadnjih 16 byte-ova u Pwdmanager.txt.
+Metodom cipher.verify(tag) provjerava odgovara li tag i ako da, vraća rječnik (json objekt pretvoren u python rječnik).
+U slučaju da verify baci ValueError javlja da je upisan pogrešan master password ili je file ručno promijenjen.
+U oba slučaja na kraju zatvara file Pwdmanager.txt.

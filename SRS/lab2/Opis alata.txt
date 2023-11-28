@@ -1,0 +1,21 @@
+Opis admina:
+Koristi se JSON rječnik za pohranu parova user:lista gdje je user ime korisnika/username, 
+a lista se sastoji od 2 člana: zastavice za forced pass change i hasha lozinke. Na početku stvara file stored.txt u koji pohranjuje te podatke.
+Za hash lozinke koristi se sažetak b64 i bcrypt. Takav hash sprema se u listu zajedno sa zastavicom koja je po defaultu 0 (ne traži forced pass change). 
+Lozinka mora imati najmanje 8 znakova, barem 1 veliko slovo, barem 1 malo slovo i barem 1 broj kako bi bila sigurnija.
+Metoda add dodaje usera ako već takvo ime ne postoji te ako se podudaraju navedene lozinke.
+Metoda passwd funkcionira na isti način, ali ona pak provjerava postoji li traženi username u bazi podataka i ako postoji nastvalja s radom - traži novi upis lozinke.
+Metoda force za traženi user postavlja zastavicu koja se provjerava prilikom logina kako bi se zatražila obnova(nova) lozinka, ako user postoji.
+Metoda delete briše par ključ:vrijednost iz dictionarya i time user s tim imenom više ne postoji, ako je traženi user postojao u bazi podataka.
+
+Opis logina:
+Pristupa se JSON rječniku preko file stored.txt. Glavne funkcije: login i force kao argumente primaju username, rječnik d i int br. 
+Na početku se  radi provjera zastavice za username: ako je zastavica 1 (prvi član liste koja je vrijednost u rječniku), 
+tada znači da će se tražiti force pass change. Da bi se napravio force pass change, korisnik mora najprije napraviti login s valjanom lozinkom, 
+u suprotnom ne može promijeniti lozinku. 
+Ako se uspješno ulogira i za novu lozinku izabere dobar niz znakova s obzirom na već anvedene kriterije, 
+onda mu se postavlja nova lozinka i zastavica se stavlja na 0.
+Br služi pri loginu: nakon 3 neuspjela pokušaja unosa lozinke korisniku se stavlja timeout od 30 sekundi prije nego što može opet pokušati upisati lozinku. 
+Lozinka se provjerava tako da se napravi b64 i hash koristeći bcrypt te takav hash se usporedi s odgovarajućim u rječniku za taj username. 
+Ako hashevi odgovaraju, ispisuje se poruka o uspješnom loginu i vraća True.
+

@@ -1,0 +1,3 @@
+cd C:\Users\Zrinka\Documents\UUI\LAB4
+
+python solution.py --train sine_train.txt --test sine_test.txt --nn 5s --popsize 10 --elitism 1 --p 0.1 --K 0.1 --iter 2000

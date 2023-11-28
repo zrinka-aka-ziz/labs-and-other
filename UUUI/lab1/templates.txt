@@ -1,0 +1,10 @@
+cd C:\Users\Zrinka\Documents\UUI\LAB1\autograder 
+python autograder.py lab1
+
+python solution.py --ss ai.txt --h ai_fail.txt --check-consistent
+python solution.py --ss ai.txt --h ai_fail.txt --check-optimistic
+python solution.py --ss 3x3_puzzle.txt --alg astar --h 3x3_misplaced_heuristic.txt
+python solution.py --ss 3x3_puzzle.txt --alg bfs
+python solution.py --ss 3x3_puzzle.txt --h 3x3_misplaced_heuristic.txt --check-consistent
+python solution.py --ss 3x3_puzzle.txt --alg ucs
+python solution.py --ss istra.txt --alg bfs

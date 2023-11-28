@@ -1,0 +1,17 @@
+Zrinka Pećanić
+
+***UPUTE***
+Alat se pokreće u naredbenom prozoru. Nakon otvaranja naredbenog prozora potrebno je pozicionirati se u folder u kojemu se nalazi pwd_manager.py
+Alat se pokreće s: python pwd_manager.py [naredba i podaci] gdje umjesto [naredba i podaci] treba pisati jedna od 3 mogućnosti:
+init [masterpass], put [masterpass] [username] [password], get [masterpass] [username]. Primjer naredbi dan je u nastavku:
+
+init glavnasifra1
+put glavnasifra1 ime sifra1
+get glavnasifra1 ime
+
+Ukoliko se upiše naredba init/get/put bez ikakvog masterpassworda, ispisat će se Error jer alat pretpostavlja 1 (nakon init), 3 (nakon put) ili 2 (nakon get) 
+stringa nakon naredbe.
+Nakon prvog pokretanja init-a, u folderu u kojem je pwd_manager.py stvorit će se file Pwdmanager.txt. 
+U njemu se zapisuju/čitaju kriptirani podaci naredbama get i put.
+Ako korisnik želi postaviti novi master password i ponovno incijalizirati manager, potrebno je izbrisati Pwdmanager.txt 
+i zatim opet pokrenuti alat s init naredbom i novim master password-om. 

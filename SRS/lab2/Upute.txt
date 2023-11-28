@@ -1,0 +1,6 @@
+Admin:
+pokreće se s: python usermgmt.py [metoda] [username] gdje [metoda] može biti add (dodavanje korisnika), passwd (promjena lozinke postojećeg korisnika), 
+forcepass (ponovno postavljanje lozinke korisnika pri idućem loginu), del (brisanje korisnika).
+
+Login:
+pokreće se s: python login.py [username]. Za traženi username korisnik upisuje lozinku i eventualno ju ponovo postavlja ako je admin tako postavio.
