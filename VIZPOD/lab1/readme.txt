@@ -14,4 +14,4 @@ heatmap i scatter plot po uzoru na prošlogodišnji labos,
 prikazuje pjesme izvođača The Weeknd i neke njihove značajke kao što su tempo, energičnost, akustičnost, trajanje itd. i pripadni scatter plot proveden nad istim.
 Detaljniji opis pojedinih značajki može se naći na linku originalnog dataseta.
 
-Zrinka Pećanić 0036517187
+Zrinka Pećanić
